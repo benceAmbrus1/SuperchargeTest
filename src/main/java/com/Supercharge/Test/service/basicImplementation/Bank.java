@@ -14,16 +14,20 @@ public class Bank implements IBank {
     }
 
     @Override
-    public void Deposit(double deposit, String accountName) {
-
+    public void Deposit(double deposit, String accountName) throws UserNotExist {
+        if(bankDB.isUserExist(accountName)){
+            bankDB.depositMoneyToUser(accountName, deposit);
+        }else{
+            throw new UserNotExist("User not Exist");
+        }
     }
 
     @Override
     public void Withdraw(double withdraw, String accountName) throws NotEnoughMoneyOnBalance, UserNotExist{
-        if(bankDB.isUserExist(accountName) == true){
-            if(bankDB.isEnoughBalance(accountName) == true){
+        if(bankDB.isUserExist(accountName)){
+            if(bankDB.isEnoughBalance(accountName, withdraw)){
                 bankDB.withdrawMoneyFromUser(withdraw, accountName);
-            }else{
+            }else {
                 throw new NotEnoughMoneyOnBalance("Not enough money on " + accountName + " balance.");
             }
         }else{
