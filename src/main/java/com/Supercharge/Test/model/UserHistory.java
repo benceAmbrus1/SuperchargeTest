@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class UserHistory {
 
-    enum EventType { DEPOSIT, WITHDRAW, TRANSFER}
+    public enum EventTypo { DEPOSIT, WITHDRAW, TRANSFER}
 
     private Date eventDate;
-    private EventType eventType;
+    private EventTypo eventType;
 
-    public UserHistory(Date eventDate, EventType eventType) {
+    public UserHistory(Date eventDate, EventTypo eventType) {
         this.eventDate = eventDate;
         this.eventType = eventType;
     }
@@ -22,11 +22,11 @@ public class UserHistory {
         this.eventDate = eventDate;
     }
 
-    public EventType getEventType() {
+    public EventTypo getEventType() {
         return eventType;
     }
 
-    public void setEventType(EventType eventType) {
+    public void setEventType(EventTypo eventType) {
         this.eventType = eventType;
     }
 }

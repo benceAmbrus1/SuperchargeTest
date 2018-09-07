@@ -3,9 +3,11 @@ package com.Supercharge.Test.dao.basicDaoImplementation;
 import com.Supercharge.Test.dao.IDataSingleton;
 import com.Supercharge.Test.exceptions.UserNotExist;
 import com.Supercharge.Test.model.User;
+import com.Supercharge.Test.model.UserHistory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 public class DataSingleton implements IDataSingleton {
     private static DataSingleton ourInstance = new DataSingleton();
@@ -41,6 +43,7 @@ public class DataSingleton implements IDataSingleton {
         User user = getUser(accountName);
         if (user != null) {
             user.setBalance(user.getBalance()-withdraw);
+            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.WITHDRAW));
         }else{
             throw new UserNotExist();
         }
@@ -50,6 +53,7 @@ public class DataSingleton implements IDataSingleton {
         User user = getUser(userName);
         if (user != null) {
             user.setBalance(user.getBalance()+deposit);
+            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.WITHDRAW));
         }else{
             throw new UserNotExist();
         }
