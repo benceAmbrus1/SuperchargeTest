@@ -1,5 +1,8 @@
 package com.Supercharge.Test.Model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class User {
 
     private int Id;
@@ -7,6 +10,7 @@ public class User {
     private String lName;
     private double balance;
     private int accountNumber;
+    private Collection<UserHistory> history;
 
     public User(int id, String fName, String lName, double balance, int accountNumber) {
         Id = id;
@@ -14,6 +18,7 @@ public class User {
         this.lName = lName;
         this.balance = balance;
         this.accountNumber = accountNumber;
+        this.history = new ArrayList<>();
     }
 
     public int getId() {
@@ -54,5 +59,13 @@ public class User {
 
     public void setAccountNumber(int accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public Collection<UserHistory> getHistory() {
+        return history;
+    }
+
+    public void setHistory(Collection<UserHistory> history) {
+        this.history = history;
     }
 }
