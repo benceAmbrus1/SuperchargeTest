@@ -6,19 +6,25 @@ import java.util.Collection;
 public class User {
 
     private int Id;
-    private String fName;
-    private String lName;
+    private String accountName;
     private double balance;
     private int accountNumber;
     private Collection<UserHistory> history;
 
-    public User(int id, String fName, String lName, double balance, int accountNumber) {
+    public User(int id, String accountName, double balance, int accountNumber) {
         Id = id;
-        this.fName = fName;
-        this.lName = lName;
+        this.accountName = accountName;
         this.balance = balance;
         this.accountNumber = accountNumber;
         this.history = new ArrayList<>();
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public int getId() {
@@ -27,22 +33,6 @@ public class User {
 
     public void setId(int id) {
         Id = id;
-    }
-
-    public String getfName() {
-        return fName;
-    }
-
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
-
-    public String getlName() {
-        return lName;
-    }
-
-    public void setlName(String lName) {
-        this.lName = lName;
     }
 
     public double getBalance() {

@@ -1,8 +1,8 @@
 package com.Supercharge.Test.service.basicImplementation;
 
-import com.Supercharge.Test.dao.DataSingleton;
+import com.Supercharge.Test.dao.basicDaoImplementation.DataSingleton;
 import com.Supercharge.Test.exceptions.NotEnoughMoneyOnBalance;
-import com.Supercharge.Test.model.User;
+import com.Supercharge.Test.exceptions.UserNotExist;
 import com.Supercharge.Test.service.IBank;
 
 public class Bank implements IBank {
@@ -14,38 +14,27 @@ public class Bank implements IBank {
     }
 
     @Override
-    public void Deposit(double deposit, User user) {
-        try{
+    public void Deposit(double deposit, String accountName) {
 
-        } catch (){
-
-        }
     }
 
     @Override
-    public void Withdraw(double withdraw, User user) {
-        try{
-            withdrawMoneyFromUser(withdraw, user);
-        } catch (NotEnoughMoneyOnBalance e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void withdrawMoneyFromUser(double withdraw, User user) throws NotEnoughMoneyOnBalance{
-        if(user.getBalance() > withdraw){
-
+    public void Withdraw(double withdraw, String accountName) throws NotEnoughMoneyOnBalance, UserNotExist{
+        if(bankDB.isUserExist(accountName) == true){
+            if(bankDB.isEnoughBalance(accountName) == true){
+                bankDB.withdrawMoneyFromUser(withdraw, accountName);
+            }else{
+                throw new NotEnoughMoneyOnBalance("Not enough money on " + accountName + " balance.");
+            }
         }else{
-            throw new NotEnoughMoneyOnBalance("There is no enough money on your account");
+            throw new UserNotExist("User not Exist");
         }
     }
 
+
     @Override
-    public void Transfer(double transfer, User sender, User getter) {
-        try{
+    public void Transfer(double transfer, String senderName, String getterName) {
 
-        }catch(){
-
-        }
     }
 
 }
