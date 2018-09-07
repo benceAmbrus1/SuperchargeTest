@@ -1,4 +1,4 @@
-package com.Supercharge.Test.Model;
+package com.Supercharge.Test.model;
 
 import java.util.Date;
 

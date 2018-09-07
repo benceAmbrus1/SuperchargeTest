@@ -1,4 +1,4 @@
-package com.Supercharge.Test.Dao;
+package com.Supercharge.Test.dao;
 
 public class DataSingleton {
     private static DataSingleton ourInstance = new DataSingleton();
@@ -8,5 +8,6 @@ public class DataSingleton {
     }
 
     private DataSingleton() {
+
     }
 }
