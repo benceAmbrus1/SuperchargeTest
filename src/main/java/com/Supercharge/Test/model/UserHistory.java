@@ -39,4 +39,13 @@ public class UserHistory {
     public void setEventType(EventTypo eventType) {
         this.eventType = eventType;
     }
+
+    @Override
+    public String toString() {
+        return "UserHistory{" +
+                "eventDate=" + eventDate +
+                ", eventType=" + eventType +
+                ", balance=" + balance +
+                '}';
+    }
 }

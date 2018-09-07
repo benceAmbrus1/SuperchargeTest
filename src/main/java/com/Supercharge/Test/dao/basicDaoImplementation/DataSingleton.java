@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 public class DataSingleton implements IDataSingleton {
+
     private static DataSingleton ourInstance = new DataSingleton();
     private Collection<User> users;
 
@@ -18,7 +19,7 @@ public class DataSingleton implements IDataSingleton {
         return ourInstance;
     }
 
-    private DataSingleton() {
+    public DataSingleton() {
         users = new ArrayList<>();
         users.add(new User(1, "TempUser1", 200.00));
         users.add(new User(2, "TempUser2", 300.00));
@@ -43,8 +44,8 @@ public class DataSingleton implements IDataSingleton {
     public void withdrawMoneyFromUser(double withdraw, String accountName) throws UserNotExist {
         User user = getUser(accountName);
         if (user != null) {
-            user.setBalance(user.getBalance()-withdraw);
-            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.DEPOSIT, withdraw));
+            user.Withdraw(withdraw);
+            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.WITHDRAW, withdraw));
         }else{
             throw new UserNotExist();
         }
@@ -53,8 +54,8 @@ public class DataSingleton implements IDataSingleton {
     public void depositMoneyToUser(String userName, double deposit) throws UserNotExist {
         User user = getUser(userName);
         if (user != null) {
-            user.setBalance(user.getBalance()+deposit);
-            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.WITHDRAW, deposit));
+            user.Deposit(deposit);
+            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.DEPOSIT, deposit));
         }else{
             throw new UserNotExist();
         }
@@ -66,13 +67,13 @@ public class DataSingleton implements IDataSingleton {
         User receiverUser = getUser(receiver);
 
         if (senderUser != null) {
-            senderUser.setBalance(senderUser.getBalance()-transfer);
+            senderUser.Withdraw(transfer);
             senderUser.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.TRANSFERSENT, transfer));
         }else{
             throw new UserNotExist();
         }
         if (receiverUser != null) {
-            receiverUser.setBalance(receiverUser.getBalance() + transfer);
+            receiverUser.Deposit(transfer);
             senderUser.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.TRANSFERGET, transfer));
         }else{
             throw new UserNotExist();

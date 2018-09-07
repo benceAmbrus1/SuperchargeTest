@@ -6,6 +6,7 @@ import com.Supercharge.Test.exceptions.UserNotExist;
 import com.Supercharge.Test.model.UserHistory;
 import com.Supercharge.Test.service.IBank;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bank implements IBank {
@@ -55,9 +56,33 @@ public class Bank implements IBank {
     @Override
     public void PrintHistory(String userName) throws UserNotExist {
         if(bankDB.isUserExist(userName)){
-            List<UserHistory> userHistoryList = bankDB.returnUserHistory(userName);
+            for( UserHistory history : bankDB.returnUserHistory(userName)){
+                System.out.println(history);
+            }
         }else{
             throw new UserNotExist("User not Exist");
         }
+    }
+
+    @Override
+    public void PrintFilterByEventTypeHistory(String userName, UserHistory.EventTypo type) throws UserNotExist {
+        if(bankDB.isUserExist(userName)){
+            List<UserHistory> historyList = bankDB.returnUserHistory(userName);
+            for( UserHistory history : FilterByType(historyList, type)){
+                System.out.println(history);
+            }
+        }else{
+            throw new UserNotExist("User not Exist");
+        }
+    }
+
+    private List<UserHistory> FilterByType(List<UserHistory> historyList, UserHistory.EventTypo type){
+        List<UserHistory> filteredList = new ArrayList<>();
+        for(UserHistory history: historyList){
+            if(history.getEventType() == type){
+                filteredList.add(history);
+            }
+        }
+        return filteredList;
     }
 }

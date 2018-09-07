@@ -37,8 +37,12 @@ public class User {
         return balance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void Deposit(double balance) {
+        this.balance += balance;
+    }
+
+    public void Withdraw(double balance) {
+        this.balance -= balance;
     }
 
     public List<UserHistory> getHistory() {
