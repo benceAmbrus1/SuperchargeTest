@@ -8,6 +8,7 @@ import com.Supercharge.Test.model.UserHistory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public class DataSingleton implements IDataSingleton {
     private static DataSingleton ourInstance = new DataSingleton();
@@ -43,7 +44,7 @@ public class DataSingleton implements IDataSingleton {
         User user = getUser(accountName);
         if (user != null) {
             user.setBalance(user.getBalance()-withdraw);
-            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.WITHDRAW));
+            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.DEPOSIT, withdraw));
         }else{
             throw new UserNotExist();
         }
@@ -53,7 +54,7 @@ public class DataSingleton implements IDataSingleton {
         User user = getUser(userName);
         if (user != null) {
             user.setBalance(user.getBalance()+deposit);
-            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.WITHDRAW));
+            user.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.WITHDRAW, deposit));
         }else{
             throw new UserNotExist();
         }
@@ -66,11 +67,23 @@ public class DataSingleton implements IDataSingleton {
 
         if (senderUser != null) {
             senderUser.setBalance(senderUser.getBalance()-transfer);
+            senderUser.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.TRANSFERSENT, transfer));
         }else{
             throw new UserNotExist();
         }
         if (receiverUser != null) {
             receiverUser.setBalance(receiverUser.getBalance() + transfer);
+            senderUser.getHistory().add(new UserHistory(new Date(), UserHistory.EventTypo.TRANSFERGET, transfer));
+        }else{
+            throw new UserNotExist();
+        }
+    }
+
+    @Override
+    public List<UserHistory> returnUserHistory(String userName) throws UserNotExist {
+        User user = getUser(userName);
+        if (user != null) {
+            return user.getHistory();
         }else{
             throw new UserNotExist();
         }

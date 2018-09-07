@@ -3,7 +3,10 @@ package com.Supercharge.Test.service.basicImplementation;
 import com.Supercharge.Test.dao.basicDaoImplementation.DataSingleton;
 import com.Supercharge.Test.exceptions.NotEnoughMoneyOnBalance;
 import com.Supercharge.Test.exceptions.UserNotExist;
+import com.Supercharge.Test.model.UserHistory;
 import com.Supercharge.Test.service.IBank;
+
+import java.util.List;
 
 public class Bank implements IBank {
 
@@ -49,4 +52,12 @@ public class Bank implements IBank {
         }
     }
 
+    @Override
+    public void PrintHistory(String userName) throws UserNotExist {
+        if(bankDB.isUserExist(userName)){
+            List<UserHistory> userHistoryList = bankDB.returnUserHistory(userName);
+        }else{
+            throw new UserNotExist("User not Exist");
+        }
+    }
 }

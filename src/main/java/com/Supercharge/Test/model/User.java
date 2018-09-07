@@ -1,14 +1,14 @@
 package com.Supercharge.Test.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class User {
 
     private int Id;
     private String accountName;
     private double balance;
-    private Collection<UserHistory> history;
+    private List<UserHistory> history;
 
     public User(int id, String accountName, double balance) {
         Id = id;
@@ -41,11 +41,11 @@ public class User {
         this.balance = balance;
     }
 
-    public Collection<UserHistory> getHistory() {
+    public List<UserHistory> getHistory() {
         return history;
     }
 
-    public void setHistory(Collection<UserHistory> history) {
+    public void setHistory(List<UserHistory> history) {
         this.history = history;
     }
 }
