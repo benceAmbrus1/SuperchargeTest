@@ -1,6 +1,7 @@
 package com.Supercharge.Test.dao.basicDaoImplementation;
 
 import com.Supercharge.Test.dao.IDataSingleton;
+import com.Supercharge.Test.exceptions.UserNotExist;
 import com.Supercharge.Test.model.User;
 
 import java.util.ArrayList;
@@ -16,8 +17,9 @@ public class DataSingleton implements IDataSingleton {
 
     private DataSingleton() {
         users = new ArrayList<>();
-        //add users later
-
+        users.add(new User(1, "TempUser1", 200.00));
+        users.add(new User(2, "TempUser2", 300.00));
+        users.add(new User(3, "TempUser3", 400.00));
     }
 
     @Override
@@ -26,29 +28,48 @@ public class DataSingleton implements IDataSingleton {
     }
 
     @Override
-    public boolean isEnoughBalance(String userName, double withdraw) {
+    public boolean isEnoughBalance(String userName, double withdraw) throws UserNotExist {
         User user = getUser(userName);
-        return user.getBalance() > withdraw;
+        if (user != null) {
+            return user.getBalance() > withdraw;
+        }
+        throw new UserNotExist();
     }
 
     @Override
-    public void withdrawMoneyFromUser(double withdraw, String accountName) {
+    public void withdrawMoneyFromUser(double withdraw, String accountName) throws UserNotExist {
         User user = getUser(accountName);
-        user.setBalance(user.getBalance()-withdraw);
+        if (user != null) {
+            user.setBalance(user.getBalance()-withdraw);
+        }else{
+            throw new UserNotExist();
+        }
     }
     @Override
-    public void depositMoneyToUser(String userName, double deposit){
+    public void depositMoneyToUser(String userName, double deposit) throws UserNotExist {
         User user = getUser(userName);
-        user.setBalance(user.getBalance()+deposit);
+        if (user != null) {
+            user.setBalance(user.getBalance()+deposit);
+        }else{
+            throw new UserNotExist();
+        }
     }
 
     @Override
-    public void transferMoney(double transfer, String sender, String receiver) {
+    public void transferMoney(double transfer, String sender, String receiver) throws UserNotExist {
         User senderUser = getUser(sender);
-        User recieverUser = getUser(receiver);
+        User receiverUser = getUser(receiver);
 
-        senderUser.setBalance(senderUser.getBalance()-transfer);
-        recieverUser.setBalance(recieverUser.getBalance() + transfer);
+        if (senderUser != null) {
+            senderUser.setBalance(senderUser.getBalance()-transfer);
+        }else{
+            throw new UserNotExist();
+        }
+        if (receiverUser != null) {
+            receiverUser.setBalance(receiverUser.getBalance() + transfer);
+        }else{
+            throw new UserNotExist();
+        }
     }
 
     private User getUser(String name){

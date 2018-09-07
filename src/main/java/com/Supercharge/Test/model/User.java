@@ -8,14 +8,12 @@ public class User {
     private int Id;
     private String accountName;
     private double balance;
-    private int accountNumber;
     private Collection<UserHistory> history;
 
-    public User(int id, String accountName, double balance, int accountNumber) {
+    public User(int id, String accountName, double balance) {
         Id = id;
         this.accountName = accountName;
         this.balance = balance;
-        this.accountNumber = accountNumber;
         this.history = new ArrayList<>();
     }
 
@@ -41,14 +39,6 @@ public class User {
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public int getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     public Collection<UserHistory> getHistory() {
