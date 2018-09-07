@@ -6,4 +6,5 @@ public interface IDataSingleton {
     boolean isEnoughBalance(String user, double withdraw);
     void depositMoneyToUser(String user, double deposit);
     void withdrawMoneyFromUser(double withdraw, String accountName);
+    void transferMoney(double transfer, String sender, String receiver);
 }

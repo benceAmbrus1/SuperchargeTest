@@ -37,8 +37,16 @@ public class Bank implements IBank {
 
 
     @Override
-    public void Transfer(double transfer, String senderName, String getterName) {
-
+    public void Transfer(double transfer, String senderName, String receiverName) throws NotEnoughMoneyOnBalance,UserNotExist {
+        if (bankDB.isUserExist(senderName) && bankDB.isUserExist(receiverName)){
+            if(bankDB.isEnoughBalance(senderName, transfer)){
+                bankDB.transferMoney(transfer, senderName, receiverName);
+            }else{
+                throw new NotEnoughMoneyOnBalance("Not enough money on " + senderName + " balance.");
+            }
+        }else{
+            throw new UserNotExist("One of the user not exist");
+        }
     }
 
 }

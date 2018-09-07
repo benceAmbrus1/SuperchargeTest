@@ -42,6 +42,11 @@ public class DataSingleton implements IDataSingleton {
         user.setBalance(user.getBalance()+deposit);
     }
 
+    @Override
+    public void transferMoney(double transfer, String sender, String receiver) {
+
+    }
+
     private User getUser(String name){
         for (User user: users) {
             if (user.getAccountName().equals(name)){
