@@ -44,7 +44,11 @@ public class DataSingleton implements IDataSingleton {
 
     @Override
     public void transferMoney(double transfer, String sender, String receiver) {
+        User senderUser = getUser(sender);
+        User recieverUser = getUser(receiver);
 
+        senderUser.setBalance(senderUser.getBalance()-transfer);
+        recieverUser.setBalance(recieverUser.getBalance() + transfer);
     }
 
     private User getUser(String name){
